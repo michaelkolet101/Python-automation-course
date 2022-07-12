@@ -6,8 +6,6 @@ def test_home_work():
     d1 = Date(29, 2, 2016)
     d3 = Date(28, 2, 2017)
     d4 = Date(31, 12, 9998)
-    d5 = Date(28, 11, 1900)
-    d6 = Date(19, 4, 2016)
 
     # test to __str__
     print(d1)
