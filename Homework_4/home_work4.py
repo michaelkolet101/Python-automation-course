@@ -36,7 +36,7 @@ class Date:
         """
         :return: data of the class
         """
-        return f"Date(day = {self.day} ,month = {self.month} , year = {self.year}"
+        return f"\nDate(day = {self.day} ,month = {self.month} , year = {self.year}\n"
 
     def is_valid(self) -> bool:
         """

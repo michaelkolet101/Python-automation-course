@@ -6,6 +6,7 @@ def test_home_work():
     d1 = Date(29, 2, 2016)
     d3 = Date(28, 2, 2017)
     d4 = Date(31, 12, 9998)
+    d6 = Date(19, 4, 2016)
 
     # test to __str__
     print(d1)
@@ -24,6 +25,7 @@ def test_home_work():
         print("get_next_day -> FAIL")
 
     # test to get_next_days
+    
     if d1.get_next_days(50) == d6.get_date():
         print("get_next_days SUCCESS")
     else:
