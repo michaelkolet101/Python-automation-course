@@ -1,6 +1,6 @@
-# from student_bank_account import StudentBankAccount
+
 import xml.etree.ElementTree as ET
-# import bank
+
 
 tree = ET.parse('data.xml')
 root = tree.getroot()

@@ -9,7 +9,7 @@ class BankAccount(PersonalInfo):
         """
         init to BankAccount class
         :param name:
-        :param id:
+        :param _id:
         :param phone_number:
         :param email_address:
         :param balance:

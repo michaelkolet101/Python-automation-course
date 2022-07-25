@@ -1,5 +1,6 @@
 from bank_account import BankAccount
 from business_bank_account import BusinessBankAccount
+from validation import *
 from student_bank_account import StudentBankAccount
 import convert_data as cd
 import statistics
@@ -25,28 +26,33 @@ class Bank:
                  Balance: str
                  extra
         """
-        if dict_of_pram['type'] == 'BankAccount':
-            self.list_of_accounts.append(BankAccount(dict_of_pram['name'],
-                                                     dict_of_pram['id'],
-                                                     dict_of_pram['phone'],
-                                                     dict_of_pram['email'],
-                                                     dict_of_pram['balance']
-                                                     ))
-        if dict_of_pram['type'] == 'StudentBankAccount':
-            self.list_of_accounts.append(StudentBankAccount(dict_of_pram['name'],
-                                                            dict_of_pram['id'],
-                                                            dict_of_pram['phone'],
-                                                            dict_of_pram['email'],
-                                                            dict_of_pram['balance'],
-                                                            dict_of_pram['college']
-                                                            ))
-        if dict_of_pram['type'] == 'BusinessBankAccount':
-            self.list_of_accounts.append(BusinessBankAccount(dict_of_pram['name'],
-                                                             dict_of_pram['id'],
-                                                             dict_of_pram['phone'],
-                                                             dict_of_pram['email'],
-                                                             dict_of_pram['balance']
-                                                             ))
+        if is_valid_email(dict_of_pram['email']) and is_valid_id(dict_of_pram['id']) and \
+                is_valid_phone_number(dict_of_pram['phone']):
+
+            if dict_of_pram['type'] == 'BankAccount':
+                self.list_of_accounts.append(BankAccount(dict_of_pram['name'],
+                                                         dict_of_pram['id'],
+                                                         dict_of_pram['phone'],
+                                                         dict_of_pram['email'],
+                                                         dict_of_pram['balance']
+                                                         ))
+            if dict_of_pram['type'] == 'StudentBankAccount':
+                self.list_of_accounts.append(StudentBankAccount(dict_of_pram['name'],
+                                                                dict_of_pram['id'],
+                                                                dict_of_pram['phone'],
+                                                                dict_of_pram['email'],
+                                                                dict_of_pram['balance'],
+                                                                dict_of_pram['college']
+                                                                ))
+            if dict_of_pram['type'] == 'BusinessBankAccount':
+                self.list_of_accounts.append(BusinessBankAccount(dict_of_pram['name'],
+                                                                 dict_of_pram['id'],
+                                                                 dict_of_pram['phone'],
+                                                                 dict_of_pram['email'],
+                                                                 dict_of_pram['balance']
+                                                                 ))
+        # else:
+        #     print(f"{dict_of_pram['id']} - some id or phon or mail worng")
 
     def delete_by_userID(self, _id: str):
         """
@@ -87,7 +93,6 @@ class Bank:
             string += '\n' + item.__str__()
         return string
 
-
     def calc_balance_statistics(self) -> tuple:
         """
         this function returns the average, the median,
@@ -96,6 +101,14 @@ class Bank:
         clients of the bank
         :return:tuple of average, median,90th percentile, 10th percentile
         """
+        data = []
+        for itm in self.list_of_accounts:
+            data.append(itm.get_balance())
+
+        return (statistics.mean(data), \
+                statistics.median(data), \
+                percentile(data, 0.1), percentile(data, 0.9))
+
 
 def main():
     b = Bank()
@@ -107,8 +120,8 @@ def main():
 
     # dict to test with add account
     param = {'name': "michael",
-             'id': "301583275 ",
-             'phone': "050-7344552",
+             'id': "301583175",
+             'phone': "050-7344452",
              'email': "michael@gmail.com",
              'balance': "5000",
              'college': " sela",
@@ -120,16 +133,17 @@ def main():
 
     print(f"after add account: {len(b.list_of_accounts)} accounts")
 
-    user_id = b.list_of_accounts[2].get_id()
+    user_id = b.list_of_accounts[1].get_id()
     print(user_id)
-    some_bank_account = b.list_of_accounts[2]
-    co = b.list_of_accounts[2].commission
+    some_bank_account = b.list_of_accounts[1]
+    co = b.list_of_accounts[1].commission
     print(some_bank_account.get_balance(), user_id)
     b.Withdraw_by_user_id(user_id, 100)
     print(some_bank_account.get_balance(), some_bank_account.get_id())
     b.Deposit_by_user_id(user_id, 2000)
     print(some_bank_account.get_balance(), some_bank_account.get_id())
     print(b)
+    print(b.calc_balance_statistics())
 
 
 if __name__ == '__main__':
