@@ -1,8 +1,12 @@
-
+import sys
 import xml.etree.ElementTree as ET
 
+try:
+    xml_file = sys.argv[1]
+except:
+    xml_file = 'init.xml'
 
-tree = ET.parse('data.xml')
+tree = ET.parse(xml_file)
 root = tree.getroot()
 
 
