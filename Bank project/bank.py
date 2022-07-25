@@ -36,7 +36,7 @@ class Bank:
                                                          dict_of_pram['email'],
                                                          dict_of_pram['balance']
                                                          ))
-            if dict_of_pram['type'] == 'StudentBankAccount':
+            if dict_of_pram['type'] == 'StudentBankAccount' and int(dict_of_pram['balance']) > -1:
                 self.list_of_accounts.append(StudentBankAccount(dict_of_pram['name'],
                                                                 dict_of_pram['id'],
                                                                 dict_of_pram['phone'],
